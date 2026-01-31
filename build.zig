@@ -16,6 +16,7 @@ pub const Backend = enum {
     sdl3_opengl3,
     sdl3_renderer,
     sdl3_gpu,
+    sdl3_vulkan,
 };
 
 pub fn build(b: *std.Build) void {
@@ -404,6 +405,18 @@ pub fn build(b: *std.Build) void {
                     "libs/imgui/backends/imgui_impl_sdlgpu3.cpp",
                 },
                 .flags = cflags,
+            });
+        },
+        .sdl3_vulkan => {
+            if (b.lazyDependency("zsdl", .{})) |zsdl| {
+                imgui.root_module.addIncludePath(zsdl.path("libs/sdl3/include"));
+            }
+            imgui.root_module.addCSourceFiles(.{
+                .files = &.{
+                    "libs/imgui/backends/imgui_impl_sdl3.cpp",
+                    "libs/imgui/backends/imgui_impl_vulkan.cpp",
+                },
+                .flags = &(cflags.* ++ .{ "-DVK_NO_PROTOTYPES", "-DZGUI_DEGAMMA" }),
             });
         },
         .sdl3_renderer => {

@@ -26,6 +26,14 @@ pub fn initOpenGL(
     }
 }
 
+pub fn initVulkan(
+    window: *const anyopaque, // SDL_Window
+) void {
+    if (!ImGui_ImplSDL3_InitForVulkan(window)) {
+        unreachable;
+    }
+}
+
 pub fn processEvent(
     event: *const anyopaque, // SDL_Event
 ) bool {
@@ -49,7 +57,7 @@ extern fn ImGui_ImplSDL3_ProcessEvent(event: *const anyopaque) bool;
 extern fn ImGui_ImplSDL3_NewFrame() void;
 extern fn ImGui_ImplSDL3_Shutdown() void;
 
-//TODO: extern fn ImGui_ImplSDL3_InitForVulkan(window: *const anyopaque) bool;
+extern fn ImGui_ImplSDL3_InitForVulkan(window: *const anyopaque) bool;
 //TODO: extern fn ImGui_ImplSDL3_InitForD3D(window: *const anyopaque) bool;
 //TODO: extern fn ImGui_ImplSDL3_InitForMetal(window: *const anyopaque) bool;
 //TODO: extern fn ImGui_ImplSDL3_InitForOther(window: *const anyopaque) bool;
