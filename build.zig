@@ -416,7 +416,7 @@ pub fn build(b: *std.Build) void {
                     "libs/imgui/backends/imgui_impl_sdl3.cpp",
                     "libs/imgui/backends/imgui_impl_vulkan.cpp",
                 },
-                .flags = &(cflags.* ++ .{ "-DVK_NO_PROTOTYPES", "-DZGUI_DEGAMMA" }),
+                .flags = &(cflags.* ++ .{ "-DVK_NO_PROTOTYPES", "-DZGUI_DEGAMMA", "-DIMGUI_IMPL_VULKAN_HAS_DYNAMIC_RENDERING" }),
             });
         },
         .sdl3_renderer => {
